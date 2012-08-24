@@ -1,3 +1,6 @@
 = PayuRails
 
 This project rocks and uses MIT-LICENSE.
+
+== Helper methods
+  = payu_link(payment_pay_path(@payment), :class => "pull-center", :method => :post)

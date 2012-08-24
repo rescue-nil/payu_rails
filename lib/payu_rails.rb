@@ -1,6 +1,11 @@
 # Engine requirements
 require "payu_rails/engine"
 
+require_dependency "payu_rails/utils/mappings"
+
+require_dependency "payu_rails/errors/respond_error"
+require_dependency "payu_rails/errors/status_error"
+
 module PayuRails
   mattr_accessor :pos_id
   mattr_accessor :client_secret
