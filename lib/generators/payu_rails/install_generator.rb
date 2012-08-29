@@ -14,6 +14,17 @@ module PayuRails
         end
       end
 
+      # Copy adapters needed for implementing
+      def copy_adapters
+        template "../../payu_rails/adapters/base_adapter.rb", "app/models/payu_rails/adapters/base_adapter.rb"
+        template "../../payu_rails/adapters/item_adapter.rb", "app/models/payu_rails/adapters/item_adapter.rb"
+        template "../../payu_rails/adapters/order_adapter.rb", "app/models/payu_rails/adapters/order_adapter.rb"
+        template "../../payu_rails/adapters/product_adapter.rb", "app/models/payu_rails/adapters/product_adapter.rb"
+        template "../../payu_rails/adapters/shipping_cost_adapter.rb", "app/models/payu_rails/adapters/shipping_cost_adapter.rb"
+        template "../../payu_rails/adapters/shopping_cart_adapter.rb", "app/models/payu_rails/adapters/shopping_cart_adapter.rb"
+        template "../../payu_rails/adapters/unit_price_adapter.rb", "app/models/payu_rails/adapters/unit_price_adapter.rb"
+      end
+
       def finish_info
         readme "README" if behavior == :invoke
       end

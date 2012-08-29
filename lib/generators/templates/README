@@ -4,4 +4,6 @@
 
 2. Run rake db:migrate
 
+3. Implement adapters in app/models/payu_rails/adapters
+
 =====================================================================================
