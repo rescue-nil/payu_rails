@@ -11,6 +11,7 @@ module PayuRails
       end
 
       # REQUIRED
+      # Quantity of the product
       def quantity
         not_yet
       end

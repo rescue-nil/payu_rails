@@ -18,22 +18,25 @@ module PayuRails
       end
 
       # REQUIRED
+      # Net price expressed in the smallest moentary unit - e.g. grosz, cent, eurocent.
       def net_price
         not_yet
       end
 
       # REQUIRED
+      # Gross price expressed in the smallest monetary unit - e.g. grosz, cent, eurocent. Gross=Net+Tax
       def gross_price
         not_yet
       end
 
       # REQUIRED
+      # One of the CURRENCY_CODES
       def currency_code
-        # One of the CURRENCY_CODES
         not_yet
       end
 
       # # OPTIONAL
+      # # Tax rate expressed in %
       # def tax_rate
       #   not_yet
       # end

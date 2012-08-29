@@ -10,17 +10,19 @@ module PayuRails
       end
 
       # REQUIRED
+      # Total price of the items in the shopping cart, excluding shipping costs and discounts.
       def grand_total
         not_yet
       end
 
       # REQUIRED
+      # One of the UnitPrice::CURRENCY_CODES
       def currency_code
-        # One of the UnitPrice::CURRENCY_CODES
         not_yet
       end
 
       # # OPTIONAL
+      # # Total discount for the shopping cart items
       # def discount_total
       #   not_yet
       # end

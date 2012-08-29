@@ -163,14 +163,17 @@ module PayuRails
         @options[:customer_ip] || "127.0.0.1"
       end
 
+      # Unique ID of point of sale/merchant in the transactional system of PayU
       def merchant_pos_id
         PayuRails.pos_id
       end
 
+      # Unique ID the current order in the transactional system.
       def session_id
         @options[:session_id]
       end
 
+      # Authorization key of a POS/merchant
       def merchant_authorization_key
         @options[:pos_auth_key]
       end
