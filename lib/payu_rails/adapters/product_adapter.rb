@@ -8,6 +8,7 @@ module PayuRails
       def initialize(obj)
         @product = obj
         @unit_price = UnitPriceAdapter.new(obj)
+        self
       end
 
       # REQUIRED

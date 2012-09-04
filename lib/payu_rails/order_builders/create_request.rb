@@ -7,7 +7,8 @@ module PayuRails
       # @options:
       # - *customer_ip - client ip
       def initialize(order, shipping = nil, *args)
-        @options       = args.extract_options!.symbolize_keys!
+        @options       = args.extract_options!.symbolize_keys! || {}
+        @commission    = nil
         @order         = Adapters::OrderAdapter.new(order)
         @shipping_cost = Adapters::ShippingCostAdapter.new(shipping) if shipping.present?
       end
@@ -141,6 +142,8 @@ module PayuRails
       # Unique id of the request
       def request_id
         # Wartość określająca unikalną wartość żądania
+        @commission ||= Commission.create
+        @commission.req_id
       end
 
       # URL, to which PayU sends order and payment statuses and other messages
@@ -170,12 +173,12 @@ module PayuRails
 
       # Unique ID the current order in the transactional system.
       def session_id
-        @options[:session_id]
+        request_id
       end
 
       # Authorization key of a POS/merchant
       def merchant_authorization_key
-        @options[:pos_auth_key]
+        PayuRails.pos_auth_key
       end
     end
   end

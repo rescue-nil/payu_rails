@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 3.2.3"
   s.add_dependency 'oauth2'
   s.add_dependency 'nokogiri'
+  s.add_dependency 'state_machine', '~> 1.1.2'
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency 'rspec-rails'

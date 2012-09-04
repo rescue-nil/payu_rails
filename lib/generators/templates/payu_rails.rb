@@ -13,7 +13,7 @@ PayuRails.setup do |config|
   #   config.pos_auth_key           = "YYYY"
   # end
   # config.sandbox_environments     = [:development, :test, :staging]
-  # config.notify_url              = ""
-  # config.order_cancel_url        = ""
-  # config.order_complete_url      = ""
+  # config.app_domain               = "193.239.38.106:3000"
+  # config.order_cancel_url         = ""
+  # config.order_complete_url       = ""
 end

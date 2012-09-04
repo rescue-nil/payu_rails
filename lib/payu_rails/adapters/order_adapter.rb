@@ -1,14 +1,15 @@
 module PayuRails
   module Adapters
     class OrderAdapter < BaseAdapter
-      attr_accessor :shopping_card
+      attr_accessor :shopping_cart
 
       OPTIONAL = [:validity_time, :order_url, :e_invoice_provided]
       ORDER_TYPE = ["VIRTUAL", "MATERIAL", "SURCHARGE"]
 
       def initialize(order)
         @order = order
-        @shopping_card = ShoppingCartAdapter.new(order)
+        @shopping_cart = ShoppingCartAdapter.new(order)
+        self
       end
 
       # REQUIRED

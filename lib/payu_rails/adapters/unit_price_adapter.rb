@@ -15,6 +15,7 @@ module PayuRails
 
       def initialize(obj)
         @obj = obj
+        self
       end
 
       # REQUIRED
@@ -35,11 +36,22 @@ module PayuRails
         not_yet
       end
 
+      # REQUIRED
+      def tax_price
+        not_yet
+      end
+
       # # OPTIONAL
       # # Tax rate expressed in %
       # def tax_rate
       #   not_yet
       # end
+
+      private
+      # Remember that price must be with comma not with dot.
+      def price_with_comma(float)
+        float.to_s.gsub('.', ',')
+      end
     end
   end
 end

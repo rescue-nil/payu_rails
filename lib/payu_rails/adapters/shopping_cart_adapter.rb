@@ -1,12 +1,14 @@
 module PayuRails
   module Adapters
     class ShoppingCartAdapter < BaseAdapter
+      attr_accessor :items
 
       OPTIONAL = [:discount_total]
 
       def initialize(obj)
         @items = []
         obj.items.each {|e| @items << ItemAdapter.new(e)}
+        self
       end
 
       # REQUIRED

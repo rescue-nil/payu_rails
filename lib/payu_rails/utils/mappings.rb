@@ -60,6 +60,20 @@ module PayuRails
         99    => "PAYMENT_STATUS_END",
         888   => "PAYMENT_STATUS_ERROR"
       }
+
+      RESPONSE_STATUSES = {
+        "OPENPAYU_SUCCESS" => "Request successful",
+        "OPENPAYU_DATA_NOT_FOUND" => "Data not found",
+        "OPENPAYU_SERVICE_NOT_AVAILABLE" => "Service not available",
+        "OPENPAYU_ERROR_INTERNAL" => "Internal error",
+        "OPENPAYU_ERROR_VALUE_MISSING" => "Missing required value",
+        "OPENPAYU_ERROR_VALUE_INVALID" => "Invalid value",
+        "OPENPAYU_ERROR_SYNTAX" => "Syntax error",
+        "OPENPAYU_ERROR_ORDER_NOT_UNIQUE" => "Order identifier is not unique",
+        "OPENPAYU_ERROR_UNKNOWN_MERCHANT_POS" => "Unknown MerchantPosId number",
+        "OPENPAYU_ERROR_USER_NOT_UNIQUE" => "User's e-mail or login is not unique",
+        "OPENPAYU_SIGNATURE_INVALID" => "Signature is invalid"
+      }
     end
   end
 end
