@@ -46,7 +46,7 @@ module PayuRails
       def build_order(xml)
         xml['payu'].Order do
           xml['payu'].MerchantPosId             merchant_pos_id
-          xml['payu'].SessionId                 session_id
+          xml['payu'].SessionId                 @order.id
           xml['payu'].OrderCreateDate           @order.order_created_date
           xml['payu'].OrderDescription          @order.order_description
           xml['payu'].OrderType                 @order.order_type

@@ -13,6 +13,13 @@ module PayuRails
       end
 
       # REQUIRED
+      # For session_id
+      def id
+        # @order.id
+        not_yet
+      end
+
+      # REQUIRED
       # One of ORDER_TYPE
       def order_type
         not_yet

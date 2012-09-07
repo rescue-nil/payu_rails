@@ -45,11 +45,13 @@ module PayuRails
   @@payu_country = "pl"
 
   mattr_accessor :access_token
+  mattr_accessor :access_token_code
 
   mattr_accessor :notify_url
   mattr_accessor :order_cancel_url
   mattr_accessor :order_complete_url
   mattr_accessor :app_domain
+  mattr_accessor :before_summary_callback
 
   # Default way to setup module
   def self.setup
@@ -69,16 +71,20 @@ module PayuRails
     "https://#{self.domain_url}"
   end
   
-  def self.summary_url
-    "#{base_url}/#{self.payu_country}/standard/co/summary"
+  def self.summary_url(*args)
+    options = args.extract_options!.to_param
+    "#{base_url}/#{self.payu_country}/standard/co/summary?#{options}"
   end
-
   def self.auth_url
     "#{base_url}/#{self.payu_country}/standard/oauth/authorize"
   end
 
   def self.user_auth_url
     "#{base_url}/#{self.payu_country}/standard/oauth/user/authorize"
+  end
+
+  def self.user_code_auth_url
+    "#{base_url}/#{self.payu_country}/standard/user/oauth/authorize"
   end
 
   def self.create_order_url
@@ -106,6 +112,17 @@ module PayuRails
     @@access_token
   end
 
+  def self.get_access_token_by_code(code, *args)
+    options = args.extract_options!.symbolize_keys!
+    unless @@access_token_code
+      client = OAuth2::Client.new(@@pos_id, @@client_secret, :token_url => user_code_auth_url, :token_method => :get)
+      client.auth_code.authorize_url(:redirect_uri => options[:redirect_uri])
+      @@access_token_code = client.auth_code.get_token(code, options, {'auth_scheme' => 'request_body'})
+    end
+
+    @@access_token_code
+  end
+
   def self.get_token
     get_access_token.token
   end
@@ -113,10 +130,4 @@ module PayuRails
   def self.notify_url
     @@notify_url || "http://#{@@app_domain}"
   end
-
-#  def self.inspect
-#    result = []
-#    class_variables.each {|e| result << "#{e} => #{class_variable_get(e)}"}
-#    result.join(',')
-#  end
 end

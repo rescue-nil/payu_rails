@@ -16,4 +16,5 @@ PayuRails.setup do |config|
   # config.app_domain               = "193.239.38.106:3000"
   # config.order_cancel_url         = ""
   # config.order_complete_url       = ""
+  # config.before_summary_callback  = ""
 end

@@ -41,22 +41,20 @@ module PayuRails
         status  = xml_doc.xpath("//StatusCode").text
         req_id  = xml_doc.xpath("//ResId").text
         
-        p xml_doc
-
         commission = Commission.find_by_req_id(req_id)
 
         return false unless commission.present?
 
         return case status
-        when "OPENPAYU_SUCCESS"
-          commission.created!
-          true
-        when "OPENPAYU_SIGNATURE_INVALID", "OPENPAYU_ERROR_VALUE_INVALID"
-          commission.error!
-          raise Errors::PaymentResponseError, "#{status}: #{xml_doc.xpath("//StatusDesc").text}"
-        else
-          commission.aborted!
-          false
+          when "OPENPAYU_SUCCESS"
+            commission.created!
+            true
+          when "OPENPAYU_SIGNATURE_INVALID", "OPENPAYU_ERROR_VALUE_INVALID"
+            commission.error!
+            raise Errors::PaymentResponseError, "#{status}: #{xml_doc.xpath("//StatusDesc").text}"
+          else
+            commission.aborted!
+            false
         end
       end
     end
