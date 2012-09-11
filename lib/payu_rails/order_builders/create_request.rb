@@ -3,10 +3,12 @@ require 'nokogiri'
 module PayuRails
   module OrderBuilders
     class CreateRequest < Base
+      attr_accessor :result
       # More at: http://www.payu.com/pl/openpayu/OrderDomainRequest.html
       # @options:
-      # - *customer_ip - client ip
+      # - *customer_ip - client iess
       def initialize(order, shipping = nil, *args)
+        @origin_order  = order
         @options       = args.extract_options!.symbolize_keys! || {}
         @commission    = nil
         @order         = Adapters::OrderAdapter.new(order)
@@ -46,7 +48,7 @@ module PayuRails
       def build_order(xml)
         xml['payu'].Order do
           xml['payu'].MerchantPosId             merchant_pos_id
-          xml['payu'].SessionId                 @order.id
+          xml['payu'].SessionId                 session_id #@order.id
           xml['payu'].OrderCreateDate           @order.order_created_date
           xml['payu'].OrderDescription          @order.order_description
           xml['payu'].OrderType                 @order.order_type
@@ -142,7 +144,7 @@ module PayuRails
       # Unique id of the request
       def request_id
         # Wartość określająca unikalną wartość żądania
-        @commission ||= Commission.create
+        @commission ||= Commission.create(:entity => @origin_order)
         @commission.req_id
       end
 

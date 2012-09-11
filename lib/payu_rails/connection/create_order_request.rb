@@ -49,7 +49,7 @@ module PayuRails
           when "OPENPAYU_SUCCESS"
             commission.created!
             true
-          when "OPENPAYU_SIGNATURE_INVALID", "OPENPAYU_ERROR_VALUE_INVALID"
+          when *Utils::Mappings::RESPONSE_STATUSES.keys
             commission.error!
             raise Errors::PaymentResponseError, "#{status}: #{xml_doc.xpath("//StatusDesc").text}"
           else

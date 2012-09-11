@@ -115,9 +115,9 @@ module PayuRails
   def self.get_access_token_by_code(code, *args)
     options = args.extract_options!.symbolize_keys!
     unless @@access_token_code
-      client = OAuth2::Client.new(@@pos_id, @@client_secret, :token_url => user_code_auth_url, :token_method => :get)
+      client = OAuth2::Client.new(@@pos_id, @@client_secret, :token_url => user_code_auth_url, :token_method => :post)
       client.auth_code.authorize_url(:redirect_uri => options[:redirect_uri])
-      @@access_token_code = client.auth_code.get_token(code, options, {'auth_scheme' => 'request_body'})
+      @@access_token_code = client.auth_code.get_token(code, options)
     end
 
     @@access_token_code
