@@ -1,0 +1,30 @@
+<div class='row'>
+  <div class="span5">
+    <div class='row'>
+      <h3>Second step</h3>
+      <p>
+        In controller we created CreateOrderRequest xml file and we sent it to payu.
+        In response we receive CreateOrderResposne xml with STATUS and information about
+        basic validation.
+        In db was created record in model PayuRails::Commission.
+        On this page alse shoud be information about checkout and redirection to payu site.
+      </p>
+
+      <p>
+        You can use two predefined helper methods for creating hidden form with basic informations
+        for payu such a:
+        <ul>
+          <li>redirect_uri</li>
+          <li>response_type</li>
+          <li>client_id/pos_id</li>
+        </ul>
+        For more please check documentation
+      </p>
+    </div>
+
+    <div class='row'>
+      <%= payu_login_link :image => true %>
+    </div>
+  </div>
+</div>
+

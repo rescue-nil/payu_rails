@@ -1,4 +1,5 @@
 require 'oauth2'
+require 'twitter-bootstrap-rails'
 
 # Engine requirements
 require "payu_rails/engine"

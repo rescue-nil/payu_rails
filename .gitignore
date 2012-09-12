@@ -6,3 +6,4 @@ spec/dummy/log/*.log
 spec/dummy/tmp/
 spec/dummy/.sass-cache
 config/environment.rb
+spec/dummy/config/initializers/payu_rails.rb
