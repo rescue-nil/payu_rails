@@ -28,7 +28,7 @@ module PayuRails
             xml.doc.root.namespace = xml.doc.root.add_namespace_definition('payu', Connection::OfficialPaths.xml_namepsace_url)
 
             # Building header
-            build_header(xml)
+            build_header_request(xml)
 
             # Building content
             xml['payu'].OrderDomainRequest do

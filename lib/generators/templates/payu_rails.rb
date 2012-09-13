@@ -1,6 +1,6 @@
 PayuRails.setup do |config|
-  # Uncomment following lines and substitute XXXX with your credentials
-  # You can find this data at: https://payu.pl/paygw/adm/index.jsp
+  # # Uncomment following lines and substitute XXXX with your credentials
+  # # You can find this data at: https://payu.pl/paygw/adm/index.jsp
   # unless Rails.env.production?
   #   config.pos_id                 = "XXXX"
   #   config.client_secret          = "XXXX"

@@ -1,7 +1,11 @@
 module PayuRails
   class Commission < ActiveRecord::Base
+    ORDER_STATUSES = Utils::Mappings::ORDER_STATUSES.values.map{|m| m.gsub("ORDER_STATUS_", "").downcase.to_sym} 
+    PAYMENT_STATUSES = Utils::Mappings::PAYMENT_STATUSES.values.map{|m| m.gsub("PAYMENT_STATUS_", "").downcase.to_sym} 
+
     attr_accessible :req_id, 
-                    :status,
+                    :order_status,
+                    :payment_status,
                     :entity_id,
                     :entity_type,
                     :entity
@@ -10,24 +14,26 @@ module PayuRails
 
     belongs_to :entity, :polymorphic => true
 
-    state_machine :order_status, :initial => :new do
-      state :pending
-      state :cancel
-      state :rejecte
-      state :complete
-      state :sent
+    state_machine :order_status, :initial => :order_new do
+      ORDER_STATUSES.each do |s|
+        st = "order_#{s}".to_sym
+        event "#{st}!" do
+          transition any => st
+        end
+        
+        state st
+      end
     end
 
-    state_machine :payment_status, :initial => :new do
-      event
-      state :cancel
-      state :rejecte
-      state :init
-      state :sent
-      state :noauth
-      state :reject_done
-      state :end
-      state :error
+    state_machine :payment_status, :initial => :payment_new do
+      PAYMENT_STATUSES.each do |s|
+        st = "payment_#{s}".to_sym
+        event "#{st}!" do
+          transition any => st
+        end
+
+        state st
+      end
     end
 
     private

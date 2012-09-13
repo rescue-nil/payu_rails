@@ -17,18 +17,14 @@ module PayuRails
         
         # Find Commission depending on res_id
         commission = Commission.find_by_req_id(req_id)
-
-        return case status
-          when ""
-            commission.created!
-            true
-          when *Utils::Mappings::RESPONSE_STATUSES.keys
-            commission.error!
-            raise Errors::PaymentResponseError, "#{status}: #{xml_doc.xpath("//StatusDesc").text}"
-          else
-            commission.aborted!
-            false
+        commission.send("#{payment_status}!")
+        commission.send("#{order_status}!")
+    
+        [payment_status, order_status].each do |s|
+          return false [:cancel, :reject, :init, :sent, :noauth, :reject_done, :error].include?(s.gsub(/(.*\_)/, "").downcase)
         end
+
+        true
       end
     end
   end

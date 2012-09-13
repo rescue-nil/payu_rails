@@ -56,6 +56,7 @@ module PayuRails
 
         return false unless commission.present?
 
+        raise "TODO: pomysl nad tym..."
         return case status
           when "OPENPAYU_SUCCESS"
             commission.created!

@@ -17,6 +17,7 @@ require "payu_rails/errors/status_error"
 # XML Builders
 require "payu_rails/order_builders/base"
 require "payu_rails/order_builders/create_request"
+require "payu_rails/order_builders/notify_response"
 
 # Connection to payu
 require "payu_rails/connection/create_order_request"
