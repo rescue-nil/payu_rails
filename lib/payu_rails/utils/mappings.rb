@@ -61,6 +61,15 @@ module PayuRails
         888   => "PAYMENT_STATUS_ERROR"
       }
 
+      ORDER_STATUSES = {
+        1 => "ORDER_STATUS_NEW",
+        2 => "ORDER_STATUS_PENDING",
+        3 => "ORDER_STATUS_CANCEL",
+        4 => "ORDER_STATUS_REJECT",
+        5 => "ORDER_STATUS_COMPLETE",
+        6 => "ORDER_STATUS_SENT"
+      }
+
       RESPONSE_STATUSES = {
         "OPENPAYU_SUCCESS" => "Request successful",
         "OPENPAYU_DATA_NOT_FOUND" => "Data not found",

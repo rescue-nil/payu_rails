@@ -14,7 +14,7 @@ module PayuRails
       # REQUIRED
       # Name of the product
       def name
-        not_yet
+        "Product/Subscription"
       end
 
       # # OPTIONAL

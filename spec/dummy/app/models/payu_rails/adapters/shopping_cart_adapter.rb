@@ -7,20 +7,20 @@ module PayuRails
 
       def initialize(obj)
         @items = []
-        obj.items.each {|e| @items << ItemAdapter.new(e)}
+        @items << ItemAdapter.new(obj)
         self
       end
 
       # REQUIRED
       # Total price of the items in the shopping cart, excluding shipping costs and discounts.
       def grand_total
-        not_yet
+        10000
       end
 
       # REQUIRED
       # One of the UnitPrice::CURRENCY_CODES
       def currency_code
-        not_yet
+        "PLN"
       end
 
       # # OPTIONAL

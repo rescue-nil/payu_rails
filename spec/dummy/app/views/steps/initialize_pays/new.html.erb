@@ -7,7 +7,15 @@
         In response we receive CreateOrderResposne xml with STATUS and information about
         basic validation.
         In db was created record in model PayuRails::Commission.
-        On this page alse shoud be information about checkout and redirection to payu site.
+        On this page also should be information about checkout and redirection to payu site.
+      </p>
+
+      <p>
+        <h5>XML response looks like this:</h5>
+        <%= @req.response.body %>
+
+        <h5>And commission record:</h5>
+        <%= @commission.inspect %>
       </p>
 
       <p>
@@ -23,7 +31,7 @@
     </div>
 
     <div class='row'>
-      <%= payu_login_link :image => true %>
+      <%= payu_login_link @commission, :image => true %>
     </div>
   </div>
 </div>

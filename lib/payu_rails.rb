@@ -1,5 +1,6 @@
 require 'oauth2'
 require 'twitter-bootstrap-rails'
+require 'state_machine'
 
 # Engine requirements
 require "payu_rails/engine"
@@ -17,18 +18,14 @@ require "payu_rails/errors/status_error"
 require "payu_rails/order_builders/base"
 require "payu_rails/order_builders/create_request"
 
+# Connection to payu
 require "payu_rails/connection/create_order_request"
-
-# Adapters - Don't require it in engine. Only in application.
-# require "payu_rails/adapters/base_adapter"
-# require "payu_rails/adapters/item_adapter"
-# require "payu_rails/adapters/order_adapter"
-# require "payu_rails/adapters/product_adapter"
-# require "payu_rails/adapters/shipping_cost_adapter"
-# require "payu_rails/adapters/shopping_cart_adapter"
-# require "payu_rails/adapters/unit_price_adapter"
+require "payu_rails/connection/official_paths"
+require "payu_rails/connection/access_token"
 
 module PayuRails
+  # Data from payu service
+  # Shop credentials must be filled by user in config file.
   mattr_accessor :pos_id
   mattr_accessor :client_secret
   mattr_accessor :client_secret_symetric
@@ -36,99 +33,34 @@ module PayuRails
   mattr_accessor :default_algorithm
   @@default_algorithm = "SHA-1"
 
+  # Option tells us when use sandbox
   mattr_accessor :sandbox_environments
-  mattr_accessor :payu_env
+  @@sandbox_environments = [:development, :test, :staging]
 
+  # Current payu environment
+  mattr_accessor :payu_env
+  @@payu_env = :sandbox
+
+  # Payu official domain
   mattr_accessor :payu_domain
   @@payu_domain = "payu.pl"
 
+  # Country, you can choose betweent :pl an :en
   mattr_accessor :payu_country
-  @@payu_country = "pl"
+  @@payu_country = :pl
 
-  mattr_accessor :access_token
-  mattr_accessor :access_token_code
-
-  mattr_accessor :notify_url
-  mattr_accessor :order_cancel_url
-  mattr_accessor :order_complete_url
+  # User system app domain or static outside IP, have to start with http://
   mattr_accessor :app_domain
-  mattr_accessor :before_summary_callback
+  @@app_domain = "http://localhost:3000"
 
-  # Default way to setup module
+  # Default way to configure engine
   def self.setup
     yield self
   end
 
+  # Overwrite sandbox_environments
   def self.sandbox_environments=(arr)
     @@sandbox_environments = arr
     @@payu_env = arr.include?(Rails.env.to_sym) ? :sandbox : :secure
-  end
-
-  def self.domain_url
-    "#{self.payu_env}.#{self.payu_domain}"
-  end
-
-  def self.base_url
-    "https://#{self.domain_url}"
-  end
-  
-  def self.summary_url(*args)
-    options = args.extract_options!.to_param
-    "#{base_url}/#{self.payu_country}/standard/co/summary?#{options}"
-  end
-  def self.auth_url
-    "#{base_url}/#{self.payu_country}/standard/oauth/authorize"
-  end
-
-  def self.user_auth_url
-    "#{base_url}/#{self.payu_country}/standard/oauth/user/authorize"
-  end
-
-  def self.user_code_auth_url
-    "#{base_url}/#{self.payu_country}/standard/user/oauth/authorize"
-  end
-
-  def self.create_order_url
-    "#{base_url}/#{self.payu_country}/standard/co/openpayu/OrderCreateRequest"
-  end
-
-  def self.update_status_order_url
-    "#{base_url}/#{self.payu_country}/standard/co/openpayu/OrderStatusUpdateRequest"
-  end
-
-  def self.cancel_order_url
-    "#{base_url}/#{self.payu_country}/standard/co/openpayu/OrderCancelRequest"
-  end
-
-  def self.retrieve_order_url
-    "#{base_url}/#{self.payu_country}/standard/co/openpayu/OrderRetrieveRequest"
-  end
-
-  def self.get_access_token
-    unless @@access_token
-      client = OAuth2::Client.new(@@pos_id, @@client_secret, :token_url => auth_url, :token_method => :get)
-      @@access_token = client.client_credentials.get_token({}, {'auth_scheme' => 'request_body'})
-    end
-
-    @@access_token
-  end
-
-  def self.get_access_token_by_code(code, *args)
-    options = args.extract_options!.symbolize_keys!
-    unless @@access_token_code
-      client = OAuth2::Client.new(@@pos_id, @@client_secret, :token_url => user_code_auth_url, :token_method => :post)
-      client.auth_code.authorize_url(:redirect_uri => options[:redirect_uri])
-      @@access_token_code = client.auth_code.get_token(code, options)
-    end
-
-    @@access_token_code
-  end
-
-  def self.get_token
-    get_access_token.token
-  end
-
-  def self.notify_url
-    @@notify_url || "http://#{@@app_domain}"
   end
 end

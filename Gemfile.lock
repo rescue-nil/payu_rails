@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    payu_rails (0.0.1a)
+    payu_rails (0.0.2a)
       nokogiri
       oauth2
       rails (~> 3.2.3)
@@ -55,7 +55,7 @@ GEM
     json (1.7.5)
     jwt (0.1.5)
       multi_json (>= 1.0)
-    less (2.2.1)
+    less (2.2.2)
       commonjs (~> 0.2.6)
     less-rails (2.2.3)
       actionpack (>= 3.1)

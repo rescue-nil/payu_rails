@@ -4,22 +4,28 @@ module PayuRails
   module OrderBuilders
     class CreateRequest < Base
       attr_accessor :result
+
       # More at: http://www.payu.com/pl/openpayu/OrderDomainRequest.html
       # @options:
-      # - *customer_ip - client iess
+      # - *customer_ip - client ip
       def initialize(order, shipping = nil, *args)
+        @commission    = nil
         @origin_order  = order
         @options       = args.extract_options!.symbolize_keys! || {}
-        @commission    = nil
         @order         = Adapters::OrderAdapter.new(order)
         @shipping_cost = Adapters::ShippingCostAdapter.new(shipping) if shipping.present?
       end
 
       def build
+        # Create commission object in DB.
+        @commission ||= Commission.create(:entity => @origin_order)
+
+        # Building xml file depending on passed options, oredr object
+        # and implemented adapters.
         @result = Nokogiri::XML::Builder.new :encoding => 'UTF-8' do |xml|
           xml.OpenPayU do
             # Correct namespace url
-            xml.doc.root.namespace = xml.doc.root.add_namespace_definition('payu', @@payu_namespace_url)
+            xml.doc.root.namespace = xml.doc.root.add_namespace_definition('payu', Connection::OfficialPaths.xml_namepsace_url)
 
             # Building header
             build_header(xml)
@@ -141,26 +147,19 @@ module PayuRails
         end
       end
 
-      # Unique id of the request
-      def request_id
-        # Wartość określająca unikalną wartość żądania
-        @commission ||= Commission.create(:entity => @origin_order)
-        @commission.req_id
-      end
-
       # URL, to which PayU sends order and payment statuses and other messages
       def notify_url
-        PayuRails.notify_url
+        "#{PayuRails.app_domain}/payu_rails/commission/#{@commission.id}/statuses"
       end
 
       # URL, to which PayU will redirect the user that wants to cancel his order
       def order_cancel_url
-        PayuRails.order_cancel_url
+        "#{PayuRails.app_domain}/payu_rails/commission/#{@commission.id}/cancels"
       end
 
       # URL, to which PayU will redirect the user after the payment is complete
       def order_complete_url
-        PayuRails.order_complete_url
+        "#{PayuRails.app_domain}/payu_rails/commission/#{@commission.id}/completes/new"
       end
 
       # Customer IP
@@ -168,14 +167,19 @@ module PayuRails
         @options[:customer_ip] || "127.0.0.1"
       end
 
+      # Unique ID the current order in the transactional system.
+      def session_id
+        @commission.session_id
+      end
+
+      # Unique id of the request
+      def request_id
+        @commission.req_id
+      end
+
       # Unique ID of point of sale/merchant in the transactional system of PayU
       def merchant_pos_id
         PayuRails.pos_id
-      end
-
-      # Unique ID the current order in the transactional system.
-      def session_id
-        request_id
       end
 
       # Authorization key of a POS/merchant

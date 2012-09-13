@@ -14,7 +14,7 @@ module PayuRails
       # REQUIRED
       # Quantity of the product
       def quantity
-        not_yet
+        1
       end
     end
   end

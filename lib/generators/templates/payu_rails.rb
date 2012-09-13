@@ -12,9 +12,13 @@ PayuRails.setup do |config|
   #   config.client_secret_symetric = "YYYY"
   #   config.pos_auth_key           = "YYYY"
   # end
+  #
+  # # Set sandbox environments.
   # config.sandbox_environments     = [:development, :test, :staging]
-  # config.app_domain               = "193.239.38.106:3000"
-  # config.order_cancel_url         = ""
-  # config.order_complete_url       = ""
-  # config.before_summary_callback  = ""
+  #
+  # # Choose between pl or en
+  # config.payu_country             = :pl
+  #
+  # # Your app domain or static outside ip
+  # config.app_domain               = "http://localhost:3000"
 end

@@ -5,13 +5,13 @@ module PayuRails
       link_to image_tag(asset_path("payu_rails/payu_button.png")), path, options
     end
 
-    def payu_login_link(*args)
+    def payu_login_link(commission, *args)
       options         = args.extract_options!.symbolize_keys!
       payu_image      = options[:image_path] || asset_path("payu_rails/payu_button.png")
 
-      form_tag PayuRails.user_auth_url, options.merge(:method => :get) do
+      form_tag Connection::OfficialPaths.user_auth_url, options.merge(:method => :get) do
         output = ""
-        output += hidden_field_tag :redirect_uri, payu_rails.new_access_token_url
+        output += hidden_field_tag :redirect_uri, payu_rails.new_commission_access_token_url(commission)
         output += hidden_field_tag :response_type, :code
         output += hidden_field_tag :client_id, PayuRails.pos_id
         

@@ -25,6 +25,12 @@ module PayuRails
         template "../../payu_rails/adapters/unit_price_adapter.rb", "app/models/payu_rails/adapters/unit_price_adapter.rb"
       end
 
+      def copy_views
+        template "../../../app/views/payu_rails/completes/new.html.erb", "app/views/payu_rails/completes/new.html.erb"
+        template "../../../app/views/payu_rails/cancels/new.html.erb", "app/views/payu_rails/cancels/new.html.erb"
+        template "../../../app/views/payu_rails/statuses/new.html.erb", "app/views/payu_rails/statuses/new.html.erb"
+      end
+
       def finish_info
         readme "README" if behavior == :invoke
       end

@@ -15,26 +15,25 @@ module PayuRails
       # REQUIRED
       # For session_id
       def id
-        # @order.id
-        not_yet
+        1
       end
 
       # REQUIRED
       # One of ORDER_TYPE
       def order_type
-        not_yet
+        "VIRTUAL"
       end
 
       # REQUIRED
       # Generation date of payment request - according to ISO standard
       def order_created_date
-        not_yet
+        Time.now.iso8601
       end
 
       # REQUIRED
       # Description of the order defined by a merchant
       def order_description
-        not_yet
+        "Some description"
       end
       
       # # OPTIONAL
