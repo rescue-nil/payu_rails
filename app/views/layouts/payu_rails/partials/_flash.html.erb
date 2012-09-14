@@ -1,0 +1,6 @@
+<% flash.keys.each do |key| %>
+  <div class="alert alert-<%= correct_flash_class_for(key)%>">
+    <button type="button" class="close" data-dismiss="<%= correct_flash_class_for(key)%>">×</button>
+    <%= flash.discard(key) %>
+  </div>
+<% end %>

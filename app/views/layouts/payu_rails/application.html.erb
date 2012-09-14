@@ -7,6 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= render :partial => "layouts/payu_rails/partials/nav" %>
+  <%= render :partial => "layouts/payu_rails/partials/flash", :locals => {:flash => flash} %>
   <div class='container'>
     <%= yield %>
   </div>

@@ -7,7 +7,14 @@ module PayuRails
     end
   
     def update
-      @commission.find(params[:id])
+      @commission = Commission.find(params[:id])
+
+      xml_builder = OrderBuilders::RetrieveRequest.new(@commission)
+      xml = xml_builder.build
+
+      Connection::RetrieveOrderRequest.new(xml.to_xml).execute
+
+      redirect_to commissions_path, :notice => "Request for updated was sent."
     end
   end
 end
