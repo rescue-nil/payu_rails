@@ -25,6 +25,7 @@ module PayuRails
         template "../../payu_rails/adapters/unit_price_adapter.rb", "app/models/payu_rails/adapters/unit_price_adapter.rb"
       end
 
+      # Copy views for overwrite
       def copy_views
         template "../../../app/views/payu_rails/completes/new.html.erb", "app/views/payu_rails/completes/new.html.erb"
         template "../../../app/views/payu_rails/cancels/new.html.erb", "app/views/payu_rails/cancels/new.html.erb"

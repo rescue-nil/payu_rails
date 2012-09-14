@@ -9,18 +9,23 @@ Gem::Specification.new do |s|
   s.version     = PayuRails::VERSION
   s.authors     = ["Piotr Gebala"]
   s.email       = ["piotrek.gebala@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of PayuRails."
-  s.description = "TODO: Description of PayuRails."
+  s.homepage    = "https://github.com/petergebala/payu_rails"
+  s.summary     = "Integration with PayU API."
+  s.description = "Integration with PayU API."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
 
-  s.add_dependency "rails", "~> 3.2.3"
+  # MAIN
+  s.add_dependency "rails", "~> 3.2.8"
   s.add_dependency 'oauth2'
   s.add_dependency 'nokogiri'
   s.add_dependency 'state_machine', '~> 1.1.2'
   s.add_dependency 'twitter-bootstrap-rails', '~> 2.1.2'
 
+  # TEST
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency "rspec-rails", "~> 2.11"
+  s.add_development_dependency "shoulda-matchers"
+  s.add_development_dependency "hirb"
+  s.add_development_dependency "quiet_assets"
 end

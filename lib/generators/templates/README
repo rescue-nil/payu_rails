@@ -11,4 +11,6 @@
 5. Implement controller like in example: 
    spec/dummy/app/controllers/steps/initialize_pays_controller
 
+6. Read documentation and README at https://github.com/petergebala/payu_rails
+
 =====================================================================================
