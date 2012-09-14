@@ -3,7 +3,7 @@ require 'nokogiri'
 module PayuRails
   module OrderBuilders
     class CreateRequest < Base
-      attr_accessor :result
+      attr_accessor :result, :commission
 
       # More at: http://www.payu.com/pl/openpayu/OrderDomainRequest.html
       # @options:

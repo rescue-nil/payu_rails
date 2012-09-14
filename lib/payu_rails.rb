@@ -21,6 +21,9 @@ require "payu_rails/order_builders/notify_response"
 
 # Connection to payu
 require "payu_rails/connection/create_order_request"
+require "payu_rails/connection/notify_order_request"
+require "payu_rails/connection/create_order_response"
+require "payu_rails/connection/notify_order_response"
 require "payu_rails/connection/official_paths"
 require "payu_rails/connection/access_token"
 

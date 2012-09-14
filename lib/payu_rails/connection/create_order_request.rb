@@ -26,7 +26,7 @@ module PayuRails
 
         data_to_send = CGI::escape("#{@xml}")
         result  = post_data("DOCUMENT=#{data_to_send}", OfficialPaths.order_create_request_url, headers)
-        parse_response(result)
+        CreateOrderResponse.new(result).parse
       end
 
       private
@@ -38,36 +38,6 @@ module PayuRails
 
         @response = payu_service.post(url, data.to_s, headers)
         @response.body
-      end
-
-      # Parsing response form Payu, extracting status
-      # and depedning on it return true/fasle or raise an error
-      def parse_response(xml_string)
-        # Prepare xml_doc
-        xml_doc = Nokogiri::XML(xml_string)
-        xml_doc.remove_namespaces!
-
-        # Fetch useful information
-        status  = xml_doc.xpath("//StatusCode").text
-        req_id  = xml_doc.xpath("//ResId").text
-        
-        # Find Commission depending on res_id
-        commission = Commission.find_by_req_id(req_id)
-
-        return false unless commission.present?
-
-        raise "TODO: pomysl nad tym..."
-        return case status
-          when "OPENPAYU_SUCCESS"
-            commission.created!
-            true
-          when *Utils::Mappings::RESPONSE_STATUSES.keys
-            commission.error!
-            raise Errors::PaymentResponseError, "#{status}: #{xml_doc.xpath("//StatusDesc").text}"
-          else
-            commission.aborted!
-            false
-        end
       end
     end
   end

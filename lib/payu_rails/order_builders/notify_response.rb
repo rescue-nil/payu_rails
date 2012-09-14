@@ -24,10 +24,10 @@ module PayuRails
             # Building content
             xml['payu'].OrderDomainResponse do
               xml['payu'].OrderNotifyResponse do
-                xml['payu'].ResId @commission.req_id
+                xml['payu'].ResId     (@options[:req_id] || @commission.req_id)
 
                 xml['payu'].Status do
-                  xml['payu'].StatusCode Utils::Mappings::RESPONSE_STATUSES.keys.first
+                  xml['payu'].StatusCode correct_status
                 end
               end
             end
@@ -35,6 +35,17 @@ module PayuRails
         end
         
         @result
+      end
+
+      private
+      def correct_status
+        if !@commission.present?
+          "OPENPAYU_DATA_NOT_FOUND"
+        elsif @commission.present? && @commission.correct_statuses?
+          "OPENPAYU_SUCCESS" 
+        else
+          "OPENPAYU_ERROR_INTERNAL"
+        end
       end
     end
   end

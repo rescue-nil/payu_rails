@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120913085201) do
+ActiveRecord::Schema.define(:version => 20120913175112) do
 
   create_table "payments", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -20,12 +20,13 @@ ActiveRecord::Schema.define(:version => 20120913085201) do
 
   create_table "payu_rails_commissions", :force => true do |t|
     t.string   "req_id"
-    t.string   "status"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "order_status"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "session_id"
     t.string   "entity_type"
     t.integer  "entity_id"
+    t.string   "payment_status"
   end
 
 end
