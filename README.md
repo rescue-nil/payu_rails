@@ -31,22 +31,22 @@ Overwrite views at:
 
 Implement one controller as in example for initialize payu order:
 
-  class Steps::InitializePaysController < ApplicationController
-    def new 
-      # We are creating new payment/cart object
-      # or finding it from db
-      @payment = Payment.create
+    class Steps::InitializePaysController < ApplicationController
+      def new 
+        # We are creating new payment/cart object
+        # or finding it from db
+        @payment = Payment.create
 
-      # We have to have implemented adapters for building valid xml file
-      xml_builder = PayuRails::OrderBuilders::CreateRequest.new(@payment)
-      xml = xml_builder.build
+        # We have to have implemented adapters for building valid xml file
+        xml_builder = PayuRails::OrderBuilders::CreateRequest.new(@payment)
+        xml = xml_builder.build
 
-      # When xml is built we sent it to payu service
-      @req = PayuRails::Connection::CreateOrderRequest.new(xml.to_xml)
-      @req.execute
-      @commission = @payment.commissions.find_by_req_id(xml_builder.commission.req_id)
+        # When xml is built we sent it to payu service
+        @req = PayuRails::Connection::CreateOrderRequest.new(xml.to_xml)
+        @req.execute
+        @commission = @payment.commissions.find_by_req_id(xml_builder.commission.req_id)
+      end
     end
-  end
 
 For more see example at spec/dummy
 
