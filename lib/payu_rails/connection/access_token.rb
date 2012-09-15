@@ -4,7 +4,7 @@ module PayuRails
       cattr_accessor :system_access_token
       cattr_accessor :client_access_token
 
-      # Get user app access token depending on shop credentials
+      # Get user app access token depending on shop credentials.
       def self.get_system_access_token
         unless @@system_access_token
           client = OAuth2::Client.new(PayuRails.pos_id, PayuRails.client_secret, 
@@ -16,7 +16,8 @@ module PayuRails
         @@system_access_token
       end
 
-      # Get access token depending on code
+      # Get access token depending on code.
+      # Used to get user access_token based on received payu code.
       def self.get_access_token_by_code(code, *args)
         options = args.extract_options!.symbolize_keys!
         unless @@client_access_token

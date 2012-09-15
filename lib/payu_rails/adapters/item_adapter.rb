@@ -13,6 +13,7 @@ module PayuRails
 
       # REQUIRED
       # Quantity of the product
+      # Return: INTEGER
       def quantity
         not_yet
       end

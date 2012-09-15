@@ -1,8 +1,6 @@
 module PayuRails
   module Connection
-    class NotifyOrderRequest
-      attr_accessor :xml
-
+    class NotifyOrderRequest < Base
       def initialize(xml, commission)
         @xml, @commission = xml, commission
         self

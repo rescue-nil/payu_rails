@@ -1,32 +1,42 @@
 <div class='row'>
-  <div class="span5">
+  <div class="span12">
     <div class='row'>
-      <h3>Second step</h3>
       <p>
-        In controller we created CreateOrderRequest xml file and we sent it to payu.
-        In response we receive CreateOrderResposne xml with STATUS and information about
-        basic validation.
-        In db was created record in model PayuRails::Commission.
-        On this page also should be information about checkout and redirection to payu site.
+        OK, user clicked link for paying some product. This page should contain informations about checkout and redirection link to payu login site.
       </p>
 
       <p>
-        <h5>XML response looks like this:</h5>
-        <%= @req.response.body %>
+        In controller we just created <b>CreateOrderRequest</b> xml file and we sent it to PayU.
+        In response we received <b>CreateOrderResposne</b> xml with STATUS and information about
+        basic VALIDATION. In db was created record in <b>PayuRails::Commission</b> model.
+      </p>
+
+      <p>
+        <h5>XML request looks like:</h5>
+        <pre>
+          <%= h @xml.to_xml %>
+        </pre>
+
+        <h5>XML response looks like:</h5>
+        <pre>
+          <%= h Nokogiri::XML(@req.response.body).to_xml %>
+        </pre>
 
         <h5>And commission record:</h5>
-        <%= @commission.inspect %>
+        <pre>
+          <%= @commission.inspect %>
+        </pre>
       </p>
 
       <p>
-        You can use two predefined helper methods for creating hidden form with basic informations
-        for payu such a:
+        You can use two predefined helper methods for creating <i>hidden form</i> with basic informations
+        for payu and redirection to login page:
         <ul>
-          <li>redirect_uri</li>
-          <li>response_type</li>
-          <li>client_id/pos_id</li>
+          <li><b>redirect_uri</b></li>
+          <li><b>response_type</b></li>
+          <li><b>client_id/pos_id</b></li>
         </ul>
-        For more please check documentation
+        For more please check out documentation.
       </p>
     </div>
 

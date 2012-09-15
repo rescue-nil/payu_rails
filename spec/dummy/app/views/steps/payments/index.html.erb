@@ -1,16 +1,35 @@
 <div class='row'>
-  <div class="span5">
+  <div class="span12">
     <div class='row'>
-      <h3>First step</h3>
       <p>
-        User initialize payment by clicking link for pay.
-        Probably 'pay link' should be connected with some 
-        model like payment, shopping basket, cart etc.
-        Checkout Steps::InitializePaysController#create for example implementation.
+        User initialize payment by clicking link for pay.  Probably 'pay link' should be connected with some 
+        model like payment, shopping basket, cart etc. 
+        After clicking link you should be redirected to controller implemented by you!
+        Checkout <b>Steps::InitializePaysController#create</b> to see example implementation:
       </p>
+      <pre>
+        <%= 'class Steps::InitializePaysController < StepsController
+          def new 
+            # We are creating new payment/cart object
+            # or finding it from db
+            @payment = Payment.create
+
+            # We have to have implemented adapters for building valid xml file
+            xml_builder = PayuRails::OrderBuilders::CreateRequest.new(@payment)
+            @xml = xml_builder.build
+
+            # When xml is built we sent it to payu service
+            @req = PayuRails::Connection::CreateOrderRequest.new(@xml.to_xml)
+            @req.execute
+            @commission = @payment.commissions.find_by_req_id(xml_builder.commission.req_id)
+
+            set_current!(:second)
+          end
+        end' %>
+      </pre>
     </div>
     <div class='row'>
-      <%= link_to "Pay for product X", new_steps_initialize_pay_path, :class => "btn btn-primary" %>
+      <%= link_to "Pay for product XXXXX", new_steps_initialize_pay_path, :class => "btn btn-primary" %>
     </div>
   </div>
 </div>

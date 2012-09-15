@@ -26,7 +26,10 @@
           <td><%= c.entity_id %></td>
           <td><%= c.created_at.to_s(:db) %></td>
           <td><%= c.updated_at.to_s(:db) %></td>
-          <td><%= link_to "Update status", payu_rails.commission_path(c), :method => :put, :class => 'btn btn-mini btn-warning' %></td>
+          <td>
+            <%= link_to "Update status", payu_rails.commission_path(c), :method => :put, :class => 'btn btn-mini btn-warning' %>
+            <%= link_to "Cancel", payu_rails.new_commission_cancel_path(c), :class => 'btn btn-mini btn-danger', :confirm => 'Are you sure?' %>
+          </td>
         </tr>
       <% end %>
     </tbody>

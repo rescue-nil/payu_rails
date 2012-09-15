@@ -20,38 +20,36 @@ module PayuRails
 
       # REQUIRED
       # Net price expressed in the smallest moentary unit - e.g. grosz, cent, eurocent.
+      # Return: INTEGER/CENTS
       def net_price
         not_yet
       end
 
       # REQUIRED
       # Gross price expressed in the smallest monetary unit - e.g. grosz, cent, eurocent. Gross=Net+Tax
+      # Return: INTEGER/CENTS
       def gross_price
         not_yet
       end
 
       # REQUIRED
-      # One of the CURRENCY_CODES
+      # One of the UnitPriceAdapter::CURRENCY_CODES
       def currency_code
         not_yet
       end
 
       # REQUIRED
+      # Return: INTEGER/CENTS
       def tax_price
         not_yet
       end
 
       # # OPTIONAL
       # # Tax rate expressed in %
+      # # Return: INTEGER
       # def tax_rate
       #   not_yet
       # end
-
-      private
-      # Remember that price must be with comma not with dot.
-      def price_with_comma(float)
-        float.to_s.gsub('.', ',')
-      end
     end
   end
 end

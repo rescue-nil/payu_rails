@@ -4,13 +4,15 @@
 
 2. Run rake db:migrate
 
-3. Implement adapters at app/models/payu_rails/adapters
+3. Implement adapters at app/models/payu_rails/adapters. Please follow comments.
 
 4. Overwrite views at app/views/payu_rails/
 
 5. Implement controller like in example: 
-   spec/dummy/app/controllers/steps/initialize_pays_controller
+   spec/dummy/app/controllers/steps/initialize_pays_controller.rb
 
 6. Read documentation and README at https://github.com/petergebala/payu_rails
+
+7. Please report bugs and features.
 
 =====================================================================================
