@@ -7,6 +7,24 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <h1>PayuRails Example</h1>
+
+  <ul class="breadcrumb">
+    <% all_steps.each_pair do |k,v| %>
+      <% if current_step?(k) %>
+        <li class="active">
+          <span class='label label-success'><%= k.capitalize %> step</span>
+        </li>
+        <span class="divider">/</span>
+      <% else %>
+        <li>
+          <span class='label label-info'><%= k.capitalize %> step</span>
+          <span class="divider">/</span>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+
   <div class='container'>
     <%= yield %>
   </div>

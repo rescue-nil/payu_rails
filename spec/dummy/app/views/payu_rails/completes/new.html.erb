@@ -1,12 +1,19 @@
 <div class='row'>
   <div class="span5">
     <div class='row'>
-      <h3>Third step</h3>
       <p>
-        If you are here that means user paid for your product.
-        This page should be something like thank you page.
-        With link to go back to your page
+        User was at PayU service. When he logged in then our system received <b>code</b>.
+        We asked PayU for access_token, based on code and redirect to summary page.
+        User confirm everything, he paid for our product and after this he was redirected to this page.
       </p>
+
+      <p>
+        If you are here that means user paid for your product. And now our engine is waiting for changing status of payment.
+        You can watch changing of status at page <%= link_to "commissions", payu_rails.commissions_path %>
+        This page should be something like thank you page. With link to go back to your shop/service.
+      </p>
+
+      <%= link_to "Repeat all steps", '/steps/payments', :class => 'btn btn-primary' %>
     </div>
   </div>
 </div>

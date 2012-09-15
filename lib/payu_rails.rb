@@ -21,6 +21,7 @@ require "payu_rails/order_builders/retrieve_request"
 require "payu_rails/order_builders/notify_response"
 
 # Connection to payu
+require "payu_rails/connection/base"
 require "payu_rails/connection/retrieve_order_request"
 require "payu_rails/connection/retrieve_order_response"
 require "payu_rails/connection/create_order_request"
