@@ -7,24 +7,25 @@ This project rocks and uses MIT-LICENSE.
 ## Instalation
 1. Use generator for install required files:
 
-```
+    ```
     rails g payu_rails:install
-```
+    ```
 
 2. Fill client shop credentials in file: `config/initializers/payu_rails.rb`
 
 3. Run migrations:
 
-```
+    ```
     rake db:migrate
-```
+    ```
+
 4. Add line to one of your main model responsible for payment:
 
-```ruby
+    ```ruby
     has_many :commissions,
              :class_name => "PayuRails::Commission",
              :as => :entity
-```
+    ```
 
 5. Implement adapters at: `app/models/payu_rails/adapters/*`
 
@@ -32,7 +33,7 @@ This project rocks and uses MIT-LICENSE.
 
 7. Implement one controller as in example for initialize payu order:
 
-```ruby
+    ```ruby
     class Steps::InitializePaysController < ApplicationController
       def new 
         # We are creating new payment/cart object
@@ -49,12 +50,12 @@ This project rocks and uses MIT-LICENSE.
         @commission = @payment.commissions.find_by_req_id(xml_builder.commission.req_id)
       end
     end
-```
+    ```
 For more see example at `spec/dummy`
 
 ## Helper methods
 
-```ruby
+    ```ruby
     = payu_link url, *args
     = payu_login_link commission, :image => true
-```
+    ```
