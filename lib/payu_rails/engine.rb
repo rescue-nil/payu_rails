@@ -2,6 +2,7 @@ module PayuRails
   class Engine < ::Rails::Engine
     isolate_namespace PayuRails
 
+    # Overwrite generator configs
     config.generators do |g|
       g.javascripts false 
       g.stylesheets false
@@ -11,6 +12,7 @@ module PayuRails
       g.template_engine :haml
     end
 
+    # Include Export helper to main AC
     initializer 'payu_rails.action_controller' do |app|
       ActiveSupport.on_load :action_controller do
         helper PayuRails::ExportHelper

@@ -11,7 +11,7 @@ module PayuRails
 
       # Receive xml with our response
       res = Connection::NotifyOrderResponse.new(xml.to_xml).execute
-      render :text => res[0]
+      render :text => res[:body]
     end
   end
 end

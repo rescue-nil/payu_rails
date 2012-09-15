@@ -1,12 +1,14 @@
 PayuRails.setup do |config|
   # # Uncomment following lines and substitute XXXX with your credentials
   # # You can find this data at: https://payu.pl/paygw/adm/index.jsp
-  # unless Rails.env.production?
+  # if Rails.env.production?
+  # # Production credentials
   #   config.pos_id                 = "XXXX"
   #   config.client_secret          = "XXXX"
   #   config.client_secret_symetric = "XXXX"
   #   config.pos_auth_key           = "XXXX"
   # else
+  # # Sandbox credentials
   #   config.pos_id                 = "YYYY"
   #   config.client_secret          = "YYYY"
   #   config.client_secret_symetric = "YYYY"

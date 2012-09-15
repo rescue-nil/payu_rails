@@ -53,6 +53,9 @@ This project rocks and uses MIT-LICENSE.
       end
     end
     ```
+
+8. Test it in sandbox mode
+
 For more see example at `spec/dummy`
 
 ## Helper methods
@@ -61,3 +64,8 @@ For more see example at `spec/dummy`
     = payu_link url, *args
     = payu_login_link commission, :image => true
     ```
+
+## TODO
+- shipping costs feature - material order type
+- tests
+- refractor connection classes

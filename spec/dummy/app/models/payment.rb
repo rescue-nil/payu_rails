@@ -1,5 +1,5 @@
 class Payment < ActiveRecord::Base
-  # attr_accessible :title, :body
+  # Needed by PayuRails engine
   has_many :commissions,
            :class_name => "PayuRails::Commission",
            :as => :entity

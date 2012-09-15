@@ -3,11 +3,13 @@ module PayuRails
     class InstallGenerator < Rails::Generators::Base
       source_root File.expand_path("../../templates", __FILE__)
 
-      desc "Creates a PayuRails initializer and copy locale files to your application."
+      desc "Creates a PayuRails initializer and copy some files to your application."
+
       def copy_initializer
         template "payu_rails.rb", "config/initializers/payu_rails.rb"
       end
 
+      # Coping migrations
       def copy_migrations
         silence_stream(STDOUT) do
           silence_warnings { rake 'payu_rails:install:migrations' }
@@ -29,9 +31,9 @@ module PayuRails
       def copy_views
         template "../../../app/views/payu_rails/completes/new.html.erb", "app/views/payu_rails/completes/new.html.erb"
         template "../../../app/views/payu_rails/cancels/new.html.erb", "app/views/payu_rails/cancels/new.html.erb"
-        template "../../../app/views/payu_rails/statuses/new.html.erb", "app/views/payu_rails/statuses/new.html.erb"
       end
 
+      # Print installation informations
       def finish_info
         readme "README" if behavior == :invoke
       end

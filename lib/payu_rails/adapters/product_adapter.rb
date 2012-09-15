@@ -13,6 +13,7 @@ module PayuRails
 
       # REQUIRED
       # Name of the product
+      # Return: STRING
       def name
         not_yet
       end
@@ -20,6 +21,7 @@ module PayuRails
       # # OPTIONAL
       # # TODO: Additional nesting in xml
       # # Weight of the product
+      # # Return: STRING
       # def weight
       #   not_yet
       # end
@@ -27,6 +29,7 @@ module PayuRails
       # # OPTIONAL
       # # TODO: Additional nesting in xml
       # # Size of the product
+      # # Return: TODO
       # def size
       #   not_yet
       # end

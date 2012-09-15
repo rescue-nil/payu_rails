@@ -1,8 +1,6 @@
 module PayuRails
   module Connection
-    class RetrieveOrderResponse
-      attr_accessor :xml
-
+    class RetrieveOrderResponse < Base
       def initialize(xml)
         @xml = xml
         self

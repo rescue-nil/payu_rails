@@ -12,6 +12,7 @@ module PayuRails
       end
 
       # REQUIRED
+      # Return: TODO
       def shipping_cost_url
         PayuRails.shipping_cost_url
       end

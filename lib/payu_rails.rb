@@ -36,7 +36,7 @@ require "payu_rails/connection/access_token"
 
 module PayuRails
   # Data from payu service
-  # Shop credentials must be filled by user in config file.
+  # Shop credentials must be filled by user in configuration file
   mattr_accessor :pos_id
   mattr_accessor :client_secret
   mattr_accessor :client_secret_symetric
@@ -61,6 +61,7 @@ module PayuRails
   @@payu_country = :pl
 
   # User system app domain or static outside IP, have to start with http://
+  # The same as url filled in payu admin panel
   mattr_accessor :app_domain
   @@app_domain = "http://localhost:3000"
 

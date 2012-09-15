@@ -6,8 +6,6 @@ require 'cgi'
 module PayuRails
   module Connection
     class CancelOrderResponse < Base
-      attr_accessor :xml
-
       def initialize(xml)
         @xml = xml
         self

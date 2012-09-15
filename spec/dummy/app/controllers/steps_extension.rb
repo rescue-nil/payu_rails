@@ -1,3 +1,4 @@
+# Module needed for setting up current sub menu in views
 module StepsExtension
   def self.included(base)
     base.class_eval do

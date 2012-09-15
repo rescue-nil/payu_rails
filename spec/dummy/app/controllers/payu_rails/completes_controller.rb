@@ -1,3 +1,4 @@
+# Overwriten controller form payu_rails engine
 module PayuRails
   class CompletesController < OrdersController
     layout 'application'
