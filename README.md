@@ -1,36 +1,38 @@
 # PayuRails
 
+Implementation PayU API for rails applications. 
+For more please visit [payu page](http://www.payu.pl/).
 This project rocks and uses MIT-LICENSE.
 
 ## Instalation
-Use generator for install required files:
+1. Use generator for install required files:
 
+```
     rails g payu_rails:install
+```
 
-Fill client shop credentials in file:
+2. Fill client shop credentials in file: `config/initializers/payu_rails.rb`
 
-    config/initializers/payu_rails.rb
+3. Run migrations:
 
-Run migrations:
-
+```
     rake db:migrate
+```
+4. Add line to one of your main model responsible for payment:
 
-Add line to one of your main model responsible for payment:
-
+```ruby
     has_many :commissions,
              :class_name => "PayuRails::Commission",
              :as => :entity
+```
 
-Implement adapters at:
+5. Implement adapters at: `app/models/payu_rails/adapters/*`
 
-    app/models/payu_rails/adapters/*
+6. Overwrite views at: `app/views/payu_rails/*`
 
-Overwrite views at:
+7. Implement one controller as in example for initialize payu order:
 
-    app/views/payu_rails/*
-
-Implement one controller as in example for initialize payu order:
-
+```ruby
     class Steps::InitializePaysController < ApplicationController
       def new 
         # We are creating new payment/cart object
@@ -47,9 +49,12 @@ Implement one controller as in example for initialize payu order:
         @commission = @payment.commissions.find_by_req_id(xml_builder.commission.req_id)
       end
     end
-
-For more see example at spec/dummy
+```
+For more see example at `spec/dummy`
 
 ## Helper methods
+
+```ruby
     = payu_link url, *args
     = payu_login_link commission, :image => true
+```
