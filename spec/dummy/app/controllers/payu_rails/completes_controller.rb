@@ -8,7 +8,7 @@ module PayuRails
 
     def new
       error_code = params[:error]
-      flash[:alert] = Utils::Mappings::ERROR_CODES[error_code.to_i]
+      flash[:alert] = Utils::Mappings::ERROR_CODES[error_code] if error_code.present?
     end
 
     private
