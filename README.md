@@ -2,6 +2,8 @@
 
 Implementation PayU API for rails applications. 
 For more please visit [payu page](http://www.payu.pl/).
+
+Engine is still under development. Please *don't use it in production!*
 This project rocks and uses MIT-LICENSE.
 
 ## Instalation
