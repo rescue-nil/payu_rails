@@ -55,7 +55,7 @@ For more see example at `spec/dummy`
 
 ## Helper methods
 
-    ```ruby
-    = payu_link url, *args
-    = payu_login_link commission, :image => true
-    ```
+```ruby
+= payu_link url, *args
+= payu_login_link commission, :image => true
+```
