@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    payu_rails (0.0.2)
+    payu_rails (0.0.3)
       nokogiri
       oauth2
       rails (~> 3.2.8)

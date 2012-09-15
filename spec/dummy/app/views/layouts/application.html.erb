@@ -25,6 +25,14 @@
     <% end %>
   </ul>
 
+
+  <% flash.keys.each do |key| %>
+    <div class="alert alert-warning">
+      <button type="button" class="close" data-dismiss="warning">×</button>
+      <%= "#{key.upcase}: #{flash.discard(key)}" %>
+    </div>
+  <% end %>
+
   <div class='container'>
     <%= yield %>
   </div>
